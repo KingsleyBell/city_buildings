@@ -3,35 +3,63 @@ import Helmet from 'react-helmet';
 import L from 'leaflet';
 import { Marker } from 'react-leaflet';
 
-import { promiseToFlyTo, getCurrentLocation } from 'lib/map';
+// import { promiseToFlyTo, getCurrentLocation } from 'lib/map';
+import { promiseToFlyTo } from 'lib/map';
 
 import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Map from 'components/Map';
 
-import gatsby_astronaut from 'assets/images/gatsby-astronaut.jpg';
+// import gatsby_astronaut from 'assets/images/gatsby-astronaut.jpg';
+import cheese_grater from '../assets/images/cheese-grater.jpeg';
 
 const LOCATION = {
-  lat: 38.9072,
-  lng: -77.0369
+  lat: 51.5139,
+  lng: -0.0823
 };
 const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 2;
-const ZOOM = 10;
+const ZOOM = 18;
 
-const timeToZoom = 2000;
-const timeToOpenPopupAfterZoom = 4000;
-const timeToUpdatePopupAfterZoom = timeToOpenPopupAfterZoom + 3000;
+const timeToZoom = 1000;
+const timeToOpenPopupAfterZoom = 1500;
+// const timeToUpdatePopupAfterZoom = timeToOpenPopupAfterZoom + 3000;
 
-const popupContentHello = `<p>Hello 👋</p>`;
+// const popupContentHello = `<p>Hello 👋</p>`;
 const popupContentGatsby = `
   <div class="popup-gatsby">
     <div class="popup-gatsby-image">
-      <img class="gatsby-astronaut" src=${gatsby_astronaut} />
+      <img class="gatsby-astronaut" src=${cheese_grater} />
     </div>
     <div class="popup-gatsby-content">
-      <h1>Gatsby Leaflet Starter</h1>
-      <p>Welcome to your new Gatsby site. Now go build something great!</p>
+      <h1>The Leadenhall Building</h1>
+      <ul>
+        <li>
+          <u>Height</u>
+          <br />
+          225 m
+        </li>
+        <li>
+          <u>Construction started</u>
+          <br />
+          2010
+        </li>
+        <li>
+          <u>Architects</u>
+          <br />
+          Richard Rogers, Graham Stirk
+          </li>
+        <li>
+          <u>Floors</u>
+          <br />
+          52
+        </li>
+        <li>
+          <u>Architecture firm</u>
+          <br />
+          Rogers Stirk Harbour + Partners
+        </li>
+      </ul>
     </div>
   </div>
 `;
@@ -52,14 +80,18 @@ const IndexPage = () => {
       maxWidth: 800
     });
 
-    const location = await getCurrentLocation().catch(() => LOCATION );
+    // const location = await getCurrentLocation().catch(() => LOCATION );
+    const location = await LOCATION;
 
     const { current = {} } = markerRef || {};
     const { leafletElement: marker } = current;
+    console.log(LOCATION);
+    console.log(current);
+    console.log(marker);
 
     marker.setLatLng( location );
     popup.setLatLng( location );
-    popup.setContent( popupContentHello );
+    popup.setContent( popupContentGatsby );
 
     setTimeout( async () => {
       await promiseToFlyTo( leafletElement, {
@@ -70,7 +102,7 @@ const IndexPage = () => {
       marker.bindPopup( popup );
 
       setTimeout(() => marker.openPopup(), timeToOpenPopupAfterZoom );
-      setTimeout(() => marker.setPopupContent( popupContentGatsby ), timeToUpdatePopupAfterZoom );
+      // setTimeout(() => marker.setPopupContent( popupContentGatsby ), timeToUpdatePopupAfterZoom );
     }, timeToZoom );
   }
 
@@ -92,12 +124,8 @@ const IndexPage = () => {
       </Map>
 
       <Container type="content" className="text-center home-start">
-        <h2>Still Getting Started?</h2>
-        <p>Run the following in your terminal!</p>
-        <pre>
-          <code>gatsby new [directory] https://github.com/colbyfayock/gatsby-starter-leaflet</code>
-        </pre>
-        <p className="note">Note: Gatsby CLI required globally for the above command</p>
+        <h2>City Buildings</h2>
+        <p>Demo architecture discovery app!</p>
       </Container>
     </Layout>
   );
