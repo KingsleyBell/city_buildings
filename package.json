@@ -51,7 +51,7 @@
     "format": "prettier-eslint --eslint-config-path ./config/eslint.config.js --write $PWD'**/*.js'",
     "lint": "eslint -c ./config/eslint.config.js . --ext .js",
     "start": "yarn develop",
-    "serve": "gatsby serve",
+    "serve": "gatsby serve -H 0.0.0.0",
     "test": "jest --config ./config/jest.config.js"
   },
   "husky": {
