@@ -1,0 +1,13 @@
+version: '3'
+services:
+  map_app:
+    container_name: map-app
+    build: ./
+    hostname: map-app
+    ports:
+      - "6000:6000"
+networks:
+  default:
+    external:
+      name: websites
+
