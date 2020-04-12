@@ -1,7 +1,7 @@
 version: '3'
 services:
   map_app:
-    container_name: map-app
+    container_name: map_app
     build: ./
     hostname: map_app
     ports:
