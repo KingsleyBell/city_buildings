@@ -5,9 +5,10 @@ WORKDIR /usr/src/app/client
 COPY package*.json ./
 
 RUN yarn install
+RUN yarn build
 
 COPY . .
 
-EXPOSE 6000
+EXPOSE 9000
 
 CMD [ "yarn", "start" ]

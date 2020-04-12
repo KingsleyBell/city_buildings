@@ -5,7 +5,7 @@ services:
     build: ./
     hostname: map_app
     ports:
-      - "6000:6000"
+      - "9000:9000"
 networks:
   default:
     external:
